@@ -21,9 +21,12 @@ jobs:
           ref: ${{ github.event_name == 'issue_comment' && format('refs/pull/{0}/head', github.event.issue.number) || '' }}
 
       - name: Parse body if needed
+        if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!initial') }}
         id: body
         uses: ./.github/actions/parse
-        if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!initial') }}
+        with:
+          BODY: ${{ github.event.comment.body }}
+        
     
       - run: | 
           echo "TDF_FLAG=${{ secrets.CTF_FLAG }}" >> $GITHUB_ENV
