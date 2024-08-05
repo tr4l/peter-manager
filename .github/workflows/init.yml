@@ -22,8 +22,7 @@ jobs:
 
       - name: Parse body if needed
         id: body
-        run: |
-          ./parse.sh
+        uses: ./.github/parse/apply
         if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!initial') }}
     
       - run: | 
