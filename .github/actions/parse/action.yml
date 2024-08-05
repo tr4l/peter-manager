@@ -2,6 +2,7 @@ name: 'Parse event comment boddy'
 description: 'Parse body'
 
 runs:
+  using: composite
   steps:
     - name: Parse
       shell: bash
