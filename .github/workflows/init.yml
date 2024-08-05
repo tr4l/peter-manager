@@ -1,0 +1,34 @@
+name: Initial commiy
+
+on:
+  pull_request:
+    branches: [ "develop", "main" ]
+  issue_comment:
+    types: [created]
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.issue.pull_request || startsWith(github.event.comment.body, '!initial') }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'issue_comment' && format('refs/pull/{0}/head', github.event.issue.number) || '' }}
+
+      - name: Parse body if needed
+        id: body
+        run: |
+          ./parse.sh
+        if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!initial') }}
+    
+      - run: | 
+          echo "TDF_FLAG=${{ secrets.CTF_FLAG }}" >> $GITHUB_ENV
+        if: ${{ 'true' != 'true' }}
+        
+      - name: Show secret
+        run: echo $TDF_FLAG
