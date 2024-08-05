@@ -1,0 +1,7 @@
+name: 'Parse event comment boddy'
+description: 'Parse body'
+
+runs:
+  steps:
+    - name: Parse
+      run: echo ${{ github.event.comment.body }}
