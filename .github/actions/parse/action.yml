@@ -4,4 +4,5 @@ description: 'Parse body'
 runs:
   steps:
     - name: Parse
+      shell: bash
       run: echo ${{ github.event.comment.body }}
