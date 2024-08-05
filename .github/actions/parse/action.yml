@@ -1,9 +1,15 @@
-name: 'Parse event comment boddy'
+name: 'Parse event comment body'
 description: 'Parse body'
 
+inputs:
+  BODY:
+    description: 'Input body to parse'
+    required: true
 runs:
   using: composite
   steps:
     - name: Parse
       shell: bash
-      run: echo ${{ github.event.comment.body }}
+      run: echo $BODY
+      env:
+        BODY: ${{ inputs.body }}
