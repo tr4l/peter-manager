@@ -26,10 +26,11 @@ jobs:
           gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${REPO}/pulls/${PR} | jq -r '.labels[].name' | grep ok
+            /repos/${REPO}/pulls/${PR} | jq -r '.labels[].name' | grep -i ok
         env:
           PR: ${{ github.event.issue.number }}
           REPO: ${{ github.event.repository.name }}
+          GH_TOKEN: ${{ github.token }}
 
       - name: Parse body if needed
         if: ${{ github.event.issue.pull_request && startsWith(github.event.comment.body, '!initial') }}
