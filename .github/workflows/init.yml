@@ -14,7 +14,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: ${{ !github.event.issue.pull_request || startsWith(github.event.comment.body, '!initial') }}
+    if: contains(github.event.pull_request.labels.*.name, 'OK') && (!github.event.issue.pull_request || startsWith(github.event.comment.body, '!initial') )
     steps:
       - uses: actions/checkout@v4
         with:
