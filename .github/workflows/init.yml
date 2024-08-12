@@ -46,3 +46,13 @@ jobs:
         
       - name: Show secret
         run: echo $TDF_FLAG
+
+      - name: That PR is OK
+        run: gh pr edit "$NUMBER" --add-label "$LABEL"
+        env:
+          NUMBER: ${{ github.event.number }}
+          GH_TOKEN: ${{ github.token }}
+          LABEL: OK
+        
+
+
