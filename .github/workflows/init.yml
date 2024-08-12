@@ -29,7 +29,7 @@ jobs:
             /repos/${REPO}/pulls/${PR} | jq -r '.labels[].name' | grep -i ok
         env:
           PR: ${{ github.event.issue.number }}
-          REPO: ${{ github.event.repository.name }}
+          REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
 
       - name: Parse body if needed
